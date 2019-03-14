@@ -35,9 +35,6 @@ Delete an existing vitamin by querying it's ID.
 ```
 DELETE /api/v1/vitamins/{id}
 ```
-
-<br/>
-
 ##### Response
 An ID within a confirmation message will be sent back upon a successful deletion response.
 <br/>
@@ -45,6 +42,9 @@ An ID within a confirmation message will be sent back upon a successful deletion
 ```
 Success: `Deleted vitamin with id 31`.
 ```
+
+<br/>
+
 ### Treatments
 #### GET
 ```
