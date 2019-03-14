@@ -33,60 +33,74 @@ app.get('/api/v1/treatments', async (req, res) => {
   }
 });
 
-app.get('/api/v1/vitamins/:id', async (request, response) => {
+app.get('/api/v1/vitamins/:id', async (req, res) => {
   try {
-    let vitamins = await database('vitamins').where('id', request.params.id).select()
+    let vitamins = await database('vitamins').where('id', req.params.id).select()
     if (vitamins.length) {
-      response.status(200).json(vitamins);
+      res.status(200).json(vitamins);
     } else {
-      response.status(404).json({ error: `No vitamin exists with id ${request.params.id}` });
+      res.status(404).json({ error: `No vitamin exists with id ${req.params.id}` });
     }
   } catch (error) {
-    response.status(500).json({ error });
+    res.status(500).json({ error });
   }
 });
 
-app.get('/api/v1/treatments/:id', async (request, response) => {
+app.get('/api/v1/treatments/:id', async (req, res) => {
   try {
-    let treatments = await database('treatments').where('id', request.params.id).select()
+    let treatments = await database('treatments').where('id', req.params.id).select()
     if (treatments.length) {
-      response.status(200).json(treatments);
+      res.status(200).json(treatments);
     } else {
-      response.status(404).json({ error: `No treatment data exists with id ${request.params.id}` });
+      res.status(404).json({ error: `No treatment data exists with id ${req.params.id}` });
     }
   } catch (error) {
-    response.status(500).json({ error });
+    res.status(500).json({ error });
   }
 });
 
-app.post('/api/v1/vitamins', async (request, response) => {
+app.post('/api/v1/vitamins', async (req, res) => {
   try {
-    const vitamin = request.body;
+    const vitamin = req.body;
     for (let requiredParameter of ['name', 'treatment_id']) {
       if (!vitamin[requiredParameter]) {
-        return response.status(422)
+        return res.status(422)
           .send({ error: `Expected format: { name: <String>, treatment_id: <Number> }. You're missing a "${requiredParameter}" property.` });
       }
     }
     let result = await database('vitamins').insert(vitamin, 'id')
-    response.status(201).json({ id: result[0] })
+    res.status(201).json({ id: result[0] })
   } catch (error) {
-    response.status(500).json({ error });
+    res.status(500).json({ error });
   }
 });
 
-app.post('/api/v1/treatments', async (request, response) => {
+app.post('/api/v1/treatments', async (req, res) => {
   try {
-    const treatment = request.body;
+    const treatment = req.body;
     for (let requiredParameter of ['uses', 'side_effects']) {
       if (!treatment[requiredParameter]) {
-        return response.status(422)
+        return res.status(422)
           .send({ error: `Expected format: { uses: <String>, side_effects: <String> }. You're missing a "${requiredParameter}" property.` });
       }
     }
     let result = await database('treatments').insert(treatment, 'id')
-    response.status(201).json({ id: result[0] })
+    res.status(201).json({ id: result[0] })
   } catch (error) {
-    response.status(500).json({ error });
+    res.status(500).json({ error });
+  }
+});
+
+app.delete('/api/v1/vitamins/:id', async (req, res) => {
+  try {
+    let vitamins = await database('vitamins').where('id', req.params.id).select()
+    if (vitamins.length) {
+      await database('vitamins').where('id', req.params.id).del();
+      res.status(204).json({ Success: `Deleted vitamin with id ${req.params.id}` });
+    } else {
+      res.status(404).json({ error: `No vitamin exists with id ${req.params.id}` });
+    }
+  } catch (error) {
+    res.status(500).json({ error });
   }
 });

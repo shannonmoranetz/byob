@@ -308,3 +308,56 @@ app.post('/api/v1/treatments', function () {
     return _ref6.apply(this, arguments);
   };
 }());
+
+app.delete('/api/v1/vitamins/:id', function () {
+  var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(req, res) {
+    var vitamins;
+    return regeneratorRuntime.wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            _context7.prev = 0;
+            _context7.next = 3;
+            return database('vitamins').where('id', req.params.id).select();
+
+          case 3:
+            vitamins = _context7.sent;
+
+            if (!vitamins.length) {
+              _context7.next = 10;
+              break;
+            }
+
+            _context7.next = 7;
+            return database('vitamins').where('id', req.params.id).del();
+
+          case 7:
+            res.status(204).json({ Success: 'Deleted vitamin with id ' + req.params.id });
+            _context7.next = 11;
+            break;
+
+          case 10:
+            res.status(404).json({ error: 'No vitamin exists with id ' + req.params.id });
+
+          case 11:
+            _context7.next = 16;
+            break;
+
+          case 13:
+            _context7.prev = 13;
+            _context7.t0 = _context7['catch'](0);
+
+            res.status(500).json({ error: _context7.t0 });
+
+          case 16:
+          case 'end':
+            return _context7.stop();
+        }
+      }
+    }, _callee7, undefined, [[0, 13]]);
+  }));
+
+  return function (_x13, _x14) {
+    return _ref7.apply(this, arguments);
+  };
+}());
