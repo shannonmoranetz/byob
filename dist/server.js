@@ -182,3 +182,129 @@ app.get('/api/v1/treatments/:id', function () {
     return _ref4.apply(this, arguments);
   };
 }());
+
+app.post('/api/v1/vitamins', function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(request, response) {
+    var vitamin, _arr, _i, requiredParameter, result;
+
+    return regeneratorRuntime.wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            _context5.prev = 0;
+            vitamin = request.body;
+            _arr = ['name', 'treatment_id'];
+            _i = 0;
+
+          case 4:
+            if (!(_i < _arr.length)) {
+              _context5.next = 11;
+              break;
+            }
+
+            requiredParameter = _arr[_i];
+
+            if (vitamin[requiredParameter]) {
+              _context5.next = 8;
+              break;
+            }
+
+            return _context5.abrupt('return', response.status(422).send({ error: 'Expected format: { name: <String>, treatment_id: <Number> }. You\'re missing a "' + requiredParameter + '" property.' }));
+
+          case 8:
+            _i++;
+            _context5.next = 4;
+            break;
+
+          case 11:
+            _context5.next = 13;
+            return database('vitamins').insert(vitamin, 'id');
+
+          case 13:
+            result = _context5.sent;
+
+            response.status(201).json({ id: result[0] });
+            _context5.next = 20;
+            break;
+
+          case 17:
+            _context5.prev = 17;
+            _context5.t0 = _context5['catch'](0);
+
+            response.status(500).json({ error: _context5.t0 });
+
+          case 20:
+          case 'end':
+            return _context5.stop();
+        }
+      }
+    }, _callee5, undefined, [[0, 17]]);
+  }));
+
+  return function (_x9, _x10) {
+    return _ref5.apply(this, arguments);
+  };
+}());
+
+app.post('/api/v1/treatments', function () {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(request, response) {
+    var treatment, _arr2, _i2, requiredParameter, result;
+
+    return regeneratorRuntime.wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            _context6.prev = 0;
+            treatment = request.body;
+            _arr2 = ['uses', 'side_effects'];
+            _i2 = 0;
+
+          case 4:
+            if (!(_i2 < _arr2.length)) {
+              _context6.next = 11;
+              break;
+            }
+
+            requiredParameter = _arr2[_i2];
+
+            if (treatment[requiredParameter]) {
+              _context6.next = 8;
+              break;
+            }
+
+            return _context6.abrupt('return', response.status(422).send({ error: 'Expected format: { uses: <String>, side_effects: <String> }. You\'re missing a "' + requiredParameter + '" property.' }));
+
+          case 8:
+            _i2++;
+            _context6.next = 4;
+            break;
+
+          case 11:
+            _context6.next = 13;
+            return database('treatments').insert(treatment, 'id');
+
+          case 13:
+            result = _context6.sent;
+
+            response.status(201).json({ id: result[0] });
+            _context6.next = 20;
+            break;
+
+          case 17:
+            _context6.prev = 17;
+            _context6.t0 = _context6['catch'](0);
+
+            response.status(500).json({ error: _context6.t0 });
+
+          case 20:
+          case 'end':
+            return _context6.stop();
+        }
+      }
+    }, _callee6, undefined, [[0, 17]]);
+  }));
+
+  return function (_x11, _x12) {
+    return _ref6.apply(this, arguments);
+  };
+}());

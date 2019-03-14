@@ -58,3 +58,35 @@ app.get('/api/v1/treatments/:id', async (request, response) => {
     response.status(500).json({ error });
   }
 });
+
+app.post('/api/v1/vitamins', async (request, response) => {
+  try {
+    const vitamin = request.body;
+    for (let requiredParameter of ['name', 'treatment_id']) {
+      if (!vitamin[requiredParameter]) {
+        return response.status(422)
+          .send({ error: `Expected format: { name: <String>, treatment_id: <Number> }. You're missing a "${requiredParameter}" property.` });
+      }
+    }
+    let result = await database('vitamins').insert(vitamin, 'id')
+    response.status(201).json({ id: result[0] })
+  } catch (error) {
+    response.status(500).json({ error });
+  }
+});
+
+app.post('/api/v1/treatments', async (request, response) => {
+  try {
+    const treatment = request.body;
+    for (let requiredParameter of ['uses', 'side_effects']) {
+      if (!treatment[requiredParameter]) {
+        return response.status(422)
+          .send({ error: `Expected format: { uses: <String>, side_effects: <String> }. You're missing a "${requiredParameter}" property.` });
+      }
+    }
+    let result = await database('treatments').insert(treatment, 'id')
+    response.status(201).json({ id: result[0] })
+  } catch (error) {
+    response.status(500).json({ error });
+  }
+});
