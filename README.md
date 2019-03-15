@@ -3,7 +3,7 @@
 
 ### Base URL
 ```
-GET /api/v1/{endpoint}
+GET https://byob-vitamins.herokuapp.com/api/v1/
 ```
 
 <br/>
