@@ -1,69 +1,78 @@
-# Byob (Build Your Own Backend)
-## An API For Vitamins And Their Treatments
+# BYOB
 
-### Base URL
+## Build-your-own-backend
+
+* * *
+
+### RESTful API with multiple endpoints for vitamins and treatments.
+
+### Base Endpoint
 ```
-GET https://byob-vitamins.herokuapp.com/api/v1/
+https://byob-vitamins.herokuapp.com/api/v1/
 ```
 
-<br/>
+### Features
 
-### Vitamins
-#### GET
+*   RESTful API
+*   CRUD endpoints
+*   HTTP Methods: GET, DELETE & POST
+
+### Tech Stack
+
+*   Node & Express
+*   Knex
+*   PostreSQL
+
+### Documentation
+
+#### Vitamins ~ GET
+
+Get all vitamins:
 ```
-GET /api/v1/vitamins
+/api/v1/vitamins
 ```
-Additionally, you can query a specific vitamin by its ID:
+Query by ID:
 ```
-GET /api/v1/vitamins/{id}
+/api/v1/vitamins/{id}
 ```
-#### POST
-Post a new vitamin to the vitamins endpoint.
+
+#### Vitamins ~ POST
+
 ```
-POST /api/v1/vitamins
+/api/v1/vitamins
 ```
-Request body requires the following keys: name, treatment_id.
-##### Response
+
+Request body requires the following keys: name, treatment_id. An ID will be sent back upon a successful post response.
+
+#### Vitamins ~ DELETE
+
+Query by ID:
+```
+/api/v1/vitamins/{id}
+```
+
 An ID will be sent back upon a successful post response.
-<br/>
-###### Example response:
+
+#### Treatments ~ GET
+
+Get all treatments:
 ```
-id: 31
-```
-#### DELETE
-Delete an existing vitamin by querying it's ID.
-```
-DELETE /api/v1/vitamins/{id}
-```
-##### Response
-An ID within a confirmation message will be sent back upon a successful deletion response.
-<br/>
-###### Example response:
-```
-Success: `Deleted vitamin with id 31`.
+/api/v1/treatments
 ```
 
-<br/>
-
-### Treatments
-#### GET
-```
-GET /api/v1/treatments
-```
-Specific treatments can also be queried by their ID:
+Query by ID:
 ```
 GET /api/v1/treatments/{id}
 ```
-#### POST
-Post new treatment data to the treatments endpoint.
+
+#### Treatments ~ POST
+
 ```
 POST /api/v1/treatments
 ```
-Request body requires the following keys: uses, side_effects.
-##### Response
-An ID will be sent back upon a successful post response.
-<br/>
-###### Example response:
-```
-id: 21
-```
+
+Request body requires the following keys: uses, side_effects. An ID will be sent back upon a successful post response.
+
+### Contributors
+
+* [Shannon Moranetz](https://github.com/shannonmoranetz)
