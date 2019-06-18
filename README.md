@@ -22,6 +22,7 @@ https://byob-vitamins.herokuapp.com/api/v1/
 *   Node & Express
 *   Knex
 *   PostreSQL
+*   Babel
 
 ### Documentation
 
